@@ -1,4 +1,5 @@
 from RedisDB import RedisClient
+from GithubLogin import GithubLogin
 import json
 
 class CookiesGenerator():
@@ -26,7 +27,7 @@ class CookiesGenerator():
             if not username in cookies_usernames:
                 # if not exist, then generate
                 password = self.accounts_db.get(username)
-                print(' Generating Cookies', ' username: ', username, ' password: ', password)
+                print(' Generating Cookies', ' username: ', str(username,encoding='utf-8'), ' password: ', str(password, encoding='utf-8'))
                 result = self.new_cookies(username, password)
                 if result.get('status') == 1: # login succeeded
                      if self.cookies_db.set(username,json.dumps(result.get('content'))):
@@ -49,7 +50,8 @@ class GithubCookiesGenerator(CookiesGenerator):
                 'content': cookies
             }
         '''
-        return {}
+        githublogin = GithubLogin()        
+        return githublogin.login(username, password)
 
 if __name__ == "__main__":
     redis = RedisClient('accounts', 'github')

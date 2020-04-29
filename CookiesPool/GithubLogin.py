@@ -29,20 +29,28 @@ class GithubLogin():
 
         response = self.session.post(url=self.post_url, data=post_data, headers=self.headers)
         if response.status_code == 200:
-            cookies = requests.utils.dict_from_cookiejar(response.cookies)
-            return {
-                'status': 1,
-                'content': cookies
-            }
+            doc = pq(response.text)
+            if not doc('#js-flash-container > div[class*=flash-error]'):
+                cookies = requests.utils.dict_from_cookiejar(response.cookies)
+                return {
+                    'status': 1,
+                    'content': cookies
+                }
+            else:
+                return {
+                    'status': 0,
+                    'content': 'Username or password wrong.'
+                }
         else:
             return {
-                'status': 0,
-                'content': 'Error in login'
+                'status': response.status_code,
+                'content': 'Request could not be completed.'
             }
+
 '''
 if __name__ == "__main__":
     githublogin = GithubLogin()
-    result = githublogin.login(name='jsrglc', password='liuchennuaa2010')
+    result = githublogin.login(name='js', password='liuc')
 
     print(result.get('status'))
     print(type(result.get('content')))

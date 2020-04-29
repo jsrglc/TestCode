@@ -31,11 +31,11 @@ class CookiesGenerator():
                 result = self.new_cookies(username, password)
                 if result.get('status') == 1: # login succeeded
                      if self.cookies_db.set(username,json.dumps(result.get('content'))):
-                        print('save cookies successfully')
+                        print('Save cookies successfully!')
                 else:                         # login failed
                     print(result.get('content'))
                     if self.accounts_db.delete(username):
-                        print('account deleted successfully')
+                        print('Account deleted successfully!')
     
 class GithubCookiesGenerator(CookiesGenerator):
     def __init__(self, website='github'):
@@ -53,9 +53,12 @@ class GithubCookiesGenerator(CookiesGenerator):
         githublogin = GithubLogin()        
         return githublogin.login(username, password)
 
+'''
 if __name__ == "__main__":
     redis = RedisClient('accounts', 'github')
     redis.set('jsrglc', 'liuchennuaa2010')
+    redis.set('js', 'liu')
 
     generator = GithubCookiesGenerator()
     generator.run() 
+'''

@@ -47,6 +47,6 @@ class GithubValidTester(ValidTester):
         except ConnectionError as e:
             print(' Error: ', e.args)
 
-if __name__ == "__main__":
-    test = GithubValidTester()
-    test.run()
+#if __name__ == "__main__":
+#    test = GithubValidTester()
+#    test.run()

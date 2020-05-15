@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for images360 project
+# Scrapy settings for scrapyseleniumtest project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,28 +9,17 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'images360'
+BOT_NAME = 'scrapyseleniumtest'
 
-SPIDER_MODULES = ['images360.spiders']
-NEWSPIDER_MODULE = 'images360.spiders'
+SPIDER_MODULES = ['scrapyseleniumtest.spiders']
+NEWSPIDER_MODULE = 'scrapyseleniumtest.spiders'
 
-MAX_PAGE = 1
-
-MONGO_URL = 'localhost'
-MONGO_DB = 'images360'
-
-MYSQL_HOST = 'localhost'
-MYSQL_USER = 'root'
-MYSQL_PASSWORD = ''
-MYSQL_DATABASE = 'images360'
-
-IMAGES_STORE = './images'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'images360 (+http://www.yourdomain.com)'
+#USER_AGENT = 'scrapyseleniumtest (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = False
+ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -58,13 +47,13 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'images360.middlewares.Images360SpiderMiddleware': 543,
+#    'scrapyseleniumtest.middlewares.ScrapyseleniumtestSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'images360.middlewares.Images360DownloaderMiddleware': 543,
+#    'scrapyseleniumtest.middlewares.ScrapyseleniumtestDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -75,11 +64,9 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'images360.pipelines.ImagePipeline': 301,
-#    'images360.pipelines.MongoPipeline': 302,
-#    'images360.pipelines.MySQLPipeline': 303,
-}
+#ITEM_PIPELINES = {
+#    'scrapyseleniumtest.pipelines.ScrapyseleniumtestPipeline': 300,
+#}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

@@ -8,13 +8,7 @@
 import scrapy
 
 
-class Images360Item(scrapy.Item):
+class ScrapyseleniumtestItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    MySQL_table = 'images'
-    MongoDB_collection = 'images'
-
-    id = scrapy.Field()
-    url = scrapy.Field()
-    title = scrapy.Field()
-    thumb = scrapy.Field()
+    pass

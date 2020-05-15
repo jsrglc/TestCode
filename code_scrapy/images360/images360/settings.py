@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for scrapydownloadertest project
+# Scrapy settings for images360 project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,14 +9,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'scrapydownloadertest'
+BOT_NAME = 'images360'
 
-SPIDER_MODULES = ['scrapydownloadertest.spiders']
-NEWSPIDER_MODULE = 'scrapydownloadertest.spiders'
+SPIDER_MODULES = ['images360.spiders']
+NEWSPIDER_MODULE = 'images360.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'scrapydownloadertest (+http://www.yourdomain.com)'
+#USER_AGENT = 'images360 (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -47,15 +47,14 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'scrapydownloadertest.middlewares.ScrapydownloadertestSpiderMiddleware': 543,
+#    'images360.middlewares.Images360SpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-#    'scrapydownloadertest.middlewares.ScrapydownloadertestDownloaderMiddleware': 543,
-    'scrapydownloadertest.middlewares.RandomUserAgentMiddleware': 543,
-}
+#DOWNLOADER_MIDDLEWARES = {
+#    'images360.middlewares.Images360DownloaderMiddleware': 543,
+#}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -66,7 +65,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'scrapydownloadertest.pipelines.ScrapydownloadertestPipeline': 300,
+#    'images360.pipelines.Images360Pipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)

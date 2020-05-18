@@ -7,6 +7,54 @@
 
 from scrapy import signals
 
+from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from scrapy.http import HtmlResponse
+from logging import getLogger
+
+class SeleniumMiddleware():
+    def __init__(self, timeout=None):
+        self.logger = getLogger(__name__)
+        self.timeout = timeout
+
+        opts = webdriver.ChromeOptions()
+        opts.headless = True
+        opts.add_argument("--window-size=1920,1080")
+        opts.add_argument("--start-maximized")
+        opts.add_argument('--disable-gpu')
+        self.browser = webdriver.Chrome(options=opts)
+        
+        self.wait = WebDriverWait(self.browser, self.timeout)
+
+    def __del__(self):
+        self.browser.close()
+
+    def process_request(self, request, spider):
+        '''
+        Use Chrome to get the page
+        '''
+        self.logger.debug('Chrome is Starting...')
+        page = request.meta.get('page')
+        try:
+            self.browser.get(request.url)
+            if page > 1:
+                input = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#mainsrp-pager div.form > input')))
+                submit = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#mainsrp-pager span.btn.J_Submit')))
+                input.clear()
+                input.send_keys(page)
+                submit.click()
+            self.wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, '#mainsrp-pager li.item.active > span'), str(page)))
+            self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#mainsrp-itemlist div.items .item')))
+            return HtmlResponse(url=request.url, body=self.browser.page_source, request=request, encoding='utf-8', status=200)
+        except TimeoutException:
+            return HtmlResponse(url=request.url, status=500, request=request)
+        
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(timeout=crawler.setting.get('SELENIUM_TIMEOUT'))  
 
 class ScrapyseleniumtestSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,

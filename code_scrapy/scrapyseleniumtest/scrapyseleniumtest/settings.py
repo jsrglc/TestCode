@@ -19,6 +19,12 @@ MAX_PAGE = 3
 
 SELENIUM_TIMEOUT = 20
 
+MONGO_URL = 'localhost'
+#MONGO_DB = 'taobao'
+MONGO_DB = 'dangdang'
+
+LOG_FILE = 'all.log'
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'scrapyseleniumtest (+http://www.yourdomain.com)'
 
@@ -68,9 +74,9 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'scrapyseleniumtest.pipelines.ScrapyseleniumtestPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'scrapyseleniumtest.pipelines.MongoPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

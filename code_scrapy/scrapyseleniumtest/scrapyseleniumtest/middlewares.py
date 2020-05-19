@@ -14,6 +14,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from scrapy.http import HtmlResponse
 from logging import getLogger
+import atexit
 
 class SeleniumMiddleware():
     def __init__(self, timeout=None):
@@ -29,7 +30,10 @@ class SeleniumMiddleware():
         
         self.wait = WebDriverWait(self.browser, self.timeout)
 
-    def __del__(self):
+        atexit.register(self.cleanup)
+
+#    def __del__(self):
+    def cleanup(self):
         self.browser.close()
 
     def process_request(self, request, spider):
@@ -41,20 +45,21 @@ class SeleniumMiddleware():
         try:
             self.browser.get(request.url)
             if page > 1:
-                input = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#mainsrp-pager div.form > input')))
-                submit = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#mainsrp-pager span.btn.J_Submit')))
+                input = self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#t__cp')))
+                submit = self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#click_get_page')))
                 input.clear()
                 input.send_keys(page)
                 submit.click()
-            self.wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, '#mainsrp-pager li.item.active > span'), str(page)))
-            self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#mainsrp-itemlist div.items .item')))
+            self.wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, 'div.paging > ul[name="Fy"]  a.current'), str(page)))
+            self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#component_59 li')))
+#            self.browser.implicitly_wait(3)
             return HtmlResponse(url=request.url, body=self.browser.page_source, request=request, encoding='utf-8', status=200)
         except TimeoutException:
             return HtmlResponse(url=request.url, status=500, request=request)
         
     @classmethod
     def from_crawler(cls, crawler):
-        return cls(timeout=crawler.setting.get('SELENIUM_TIMEOUT'))  
+        return cls(timeout=crawler.settings.get('SELENIUM_TIMEOUT'))  
 
 class ScrapyseleniumtestSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,

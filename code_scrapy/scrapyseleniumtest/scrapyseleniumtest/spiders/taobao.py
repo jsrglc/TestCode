@@ -3,8 +3,8 @@ import scrapy
 from scrapyseleniumtest.items import ProductItem
 from urllib.parse import quote
 
-class TabaoSpider(scrapy.Spider):
-    name = 'tabao'
+class TaobaoSpider(scrapy.Spider):
+    name = 'taobao'
     allowed_domains = ['www.taobao.com']
 
     def start_requests(self):

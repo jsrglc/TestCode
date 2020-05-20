@@ -14,6 +14,16 @@ BOT_NAME = 'scrapysplashtest'
 SPIDER_MODULES = ['scrapysplashtest.spiders']
 NEWSPIDER_MODULE = 'scrapysplashtest.spiders'
 
+SPLASH_URL = 'http://192.168.99.104:8050'
+DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
+HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
+
+KEYWORDS = ['iPad']
+MAX_PAGE = 3
+SPLASH_TIMEOUT = 3
+
+MONGO_URL = 'localhost'
+MONGO_DB = 'dangdang'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'scrapysplashtest (+http://www.yourdomain.com)'
@@ -46,15 +56,19 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
+SPIDER_MIDDLEWARES = {
 #    'scrapysplashtest.middlewares.ScrapysplashtestSpiderMiddleware': 543,
-#}
+    'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
+}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
+DOWNLOADER_MIDDLEWARES = {
 #    'scrapysplashtest.middlewares.ScrapysplashtestDownloaderMiddleware': 543,
-#}
+    'scrapy_splash.SplashCookiesMiddleware': 723,
+    'scrapy_splash.SplashMiddleware': 725,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -64,9 +78,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'scrapysplashtest.pipelines.ScrapysplashtestPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'scrapysplashtest.pipelines.MongoPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

@@ -5,7 +5,11 @@
     "index": "http://tech.china.com/",
     "settings": {"USER_AGENT": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36"
     },
-    "start_urls": ["http://tech.china.com/articles/"],
+    "start_urls": {
+      "type": "dynamic",
+      "method": "china",
+      "args": [2, 4]
+    },
     "allowed_domains": ["tech.china.com"],
     "rules": "china",
     "item": {
@@ -27,19 +31,20 @@
         "text": [
           {
             "method": "xpath",
-            "args": ["//*[@id=chan_newsDetail]//p[position() < last()]/text()"]
+            "args": ["//*[@id='chan_newsDetail']//p[position() < last()]/text()"]
           }
         ],
-        "datetime": [
+        "datatime": [
           {
             "method": "xpath",
-            "args": ["//*[@id='js-article-title']//span[@class='time']/text()"]
+            "args": ["//*[@id='js-article-title']//span[@class='time']/text()"],
+            "re": "(\\d+-\\d+-\\d+\\s\\d+:\\d+:\\d+)"
           }
         ],
         "source": [
           {
             "method": "xpath",
-            "args": ["/*[@id='js-article-title']//span[@class='source']/text()"],
+            "args": ["//*[@id='js-article-title']//span[@class='source']/text()"],
             "re": "来源：(.*)"
           }
         ],

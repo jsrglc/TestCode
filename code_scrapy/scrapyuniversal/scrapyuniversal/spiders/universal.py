@@ -4,6 +4,9 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from scrapyuniversal.utils import get_config
 from scrapyuniversal.rules import rules
+from scrapyuniversal.items import *
+from scrapyuniversal.loader import *
+from scrapyuniversal import urls
 
 class UniversalSpider(CrawlSpider):
     name = 'universal'
@@ -11,8 +14,15 @@ class UniversalSpider(CrawlSpider):
         config = get_config(name)
         self.config = config
         self.rules = rules.get(config.get('rules'))
-        self.start_urls = config.get('start_urls')
         self.allowed_domains = config.get('allowed_domains')
+
+        start_urls = config.get('start_urls')
+        if start_urls:
+            if start_urls.get('type') == 'static':
+                self.start_urls = start_urls.get('value')
+            elif start_urls.get('type') == 'dynamic':
+                self.start_urls = list(eval('urls.' + start_urls.get('method'))(*start_urls.get('args')))
+
         super(UniversalSpider, self).__init__(*args, **kwargs)
 
     def parse_item(self, response):

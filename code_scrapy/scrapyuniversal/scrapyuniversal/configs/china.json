@@ -7,5 +7,49 @@
     },
     "start_urls": ["http://tech.china.com/articles/"],
     "allowed_domains": ["tech.china.com"],
-    "rules": "china"
+    "rules": "china",
+    "item": {
+      "class": "NewsItem",
+      "loader": "ChinaLoader",
+      "attrs": {
+        "title": [
+          {
+            "method": "xpath",
+            "args": ["//*[@id='chan_newsTitle']/text()"]
+          }
+        ],
+        "url": [
+          {
+            "method": "attr",
+            "args": ["url"]
+          }
+        ],
+        "text": [
+          {
+            "method": "xpath",
+            "args": ["//*[@id=chan_newsDetail]//p[position() < last()]/text()"]
+          }
+        ],
+        "datetime": [
+          {
+            "method": "xpath",
+            "args": ["//*[@id='js-article-title']//span[@class='time']/text()"]
+          }
+        ],
+        "source": [
+          {
+            "method": "xpath",
+            "args": ["/*[@id='js-article-title']//span[@class='source']/text()"],
+            "re": "来源：(.*)"
+          }
+        ],
+        "website": [
+          {
+            "method": "value",
+            "args": ["中华网"]
+          }
+        ]
+      }
+      
+    }
   }

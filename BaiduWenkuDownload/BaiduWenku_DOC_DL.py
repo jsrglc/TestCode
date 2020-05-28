@@ -70,6 +70,6 @@ def BaiduWenku_DOC_DL(url, outputDir):
     SaveToWord(content, outputDir).SaveParagraph()
 
 if __name__ == "__main__":
-    url = 'https://wenku.baidu.com/view/6f6ebaababea998fcc22bcd126fff705cd175c6a.html'
+    url = 'https://wenku.baidu.com/view/ff49f05b657d27284b73f242336c1eb91b373364.html'
     outputDir = 'F:\\code-test\\Test-Area\\BaiduWenkuDownload\\docs\\'
     BaiduWenku_DOC_DL(url, outputDir) 

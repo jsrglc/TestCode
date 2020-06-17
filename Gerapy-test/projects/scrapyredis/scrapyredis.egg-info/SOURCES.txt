@@ -1,0 +1,14 @@
+setup.py
+scrapyredis/BloomFilter.py
+scrapyredis/__init__.py
+scrapyredis/items.py
+scrapyredis/middlewares.py
+scrapyredis/pipelines.py
+scrapyredis/settings.py
+scrapyredis.egg-info/PKG-INFO
+scrapyredis.egg-info/SOURCES.txt
+scrapyredis.egg-info/dependency_links.txt
+scrapyredis.egg-info/entry_points.txt
+scrapyredis.egg-info/top_level.txt
+scrapyredis/spiders/__init__.py
+scrapyredis/spiders/baidu.py
